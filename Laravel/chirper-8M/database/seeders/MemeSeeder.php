@@ -29,7 +29,7 @@ class MemeSeeder extends Seeder
                 User::create([
                     'name' => 'Laura Martínez',
                     'email' => 'laura@example.com',
-                    'password' => bcrypt('larau123'),
+                    'password' => bcrypt('laura123'),
                 ]),
             ])
             : User::take(3)->get();

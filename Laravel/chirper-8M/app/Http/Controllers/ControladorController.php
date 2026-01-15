@@ -9,7 +9,7 @@ class ControladorController extends Controller
 {
     public function index(){
 
-        $memes = Meme::with('user')->latest('fecha_subida')->get();
+        $memes = Meme::with('user')->latest('fecha_subida')->limit(2)->get();
 
         return view('feed', ['memes' => $memes]);
 
