@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('memes', function (Blueprint $table) {
+        Schema::create('bulos', function (Blueprint $table) {
             $table->id();
-            $table->string('meme_url');
-            $table->text('explicacion');
-            $table->timestamp('fecha_subida');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->text('texto');
+            $table->text('texto_desmentido')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('memes');
+        Schema::dropIfExists('bulos');
     }
 };

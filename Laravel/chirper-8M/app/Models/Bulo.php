@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Bulo extends Model
 {
     protected $fillable = [
-        'texto_bulo',
-        'texto_desmentido',
+        'user_id',
+        'texto',
+        'texto_desmentido'
     ];
 
-    public function user(): belongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

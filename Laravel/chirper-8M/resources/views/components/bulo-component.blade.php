@@ -1,4 +1,4 @@
-@props(['meme'])
+@props(['bulo'])
 
 <div class="w-full max-w-xl perspective">
     <div x-data="{ flipped: false }" class="relative w-full min-h-[34rem] h-auto"
@@ -11,26 +11,26 @@
 
             {{-- Avatar y nombre --}}
             <div class="flex items-center space-x-3 mb-4">
-                @if($meme->user)
-                    <img src="https://avatars.laravel.cloud/{{ urlencode($meme->user->email) }}"
-                         alt="{{ $meme->user->name }}'s avatar" class="w-12 h-12 rounded-full" />
+                @if($bulo->user)
+                    <img src="https://avatars.laravel.cloud/{{ urlencode($bulo->user->email) }}"
+                         alt="{{ $bulo->user->name }}'s avatar" class="w-12 h-12 rounded-full" />
                     <div class="flex flex-col">
-                        <span class="font-semibold">{{ $meme->user->name }}</span>
-                        <span class="text-sm text-gray-500">{{ $meme->fecha_subida->diffForHumans() }}</span>
+                        <span class="font-semibold">{{ $bulo->user->name }}</span>
+                        <span class="text-sm text-gray-500">{{ $bulo->created_at->diffForHumans() }}</span>
                     </div>
                 @else
                     <img src="https://avatars.laravel.cloud/f61123d5-0b27-434c-a4ae-c653c7fc9ed6?vibe=stealth"
                          alt="Anonymous User" class="w-12 h-12 rounded-full" />
                     <div class="flex flex-col">
                         <span class="font-semibold">Anonymous</span>
-                        <span class="text-sm text-gray-500">{{ $meme->fecha_subida->diffForHumans() }}</span>
+                        <span class="text-sm text-gray-500">{{ $bulo->created_at->diffForHumans() }}</span>
                     </div>
                 @endif
             </div>
 
-            {{-- Meme --}}
-            <div class="flex-1 flex flex-col items-center justify-center overflow-hidden">
-                <img src="{{ $meme->meme_url }}" alt="Meme" class="rounded-lg w-full h-auto max-h-[70vh] object-cover">
+            {{-- Bulo --}}
+            <div class="flex-1 flex flex-col items-center justify-center overflow-hidden p-6">
+                <p class="text-gray-800 text-xl font-semibold text-center">{{ $bulo->texto }}</p>
             </div>
 
             {{-- Botón Chirp --}}
@@ -45,11 +45,30 @@
         <div class="absolute w-full h-full backface-hidden rotate-y-180 flex flex-col bg-white shadow-lg rounded-lg p-4 justify-between">
             {{-- Explicación centrada --}}
             <div class="flex-1 flex items-center justify-center text-center">
-                <p class="text-gray-700 text-lg">{{ $meme->explicacion }}</p>
+                <p class="text-gray-700 text-lg">{{ $bulo->texto_desmentido }}</p>
             </div>
 
-            {{-- Botón Volver abajo --}}
-            <div class="flex justify-center">
+            {{-- Botones de acción --}}
+            <div class="flex flex-col gap-2">
+                @can('update', $bulo)
+                    <div class="flex gap-2">
+                        <a href="/bulos/{{ $bulo->id }}/edit"
+                           class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded text-center">
+                            Editar
+                        </a>
+                        
+                        <form method="POST" action="/bulos/{{ $bulo->id }}" class="flex-1">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" 
+                                    class="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded"
+                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este bulo?')">
+                                Eliminar
+                            </button>
+                        </form>
+                    </div>
+                @endcan
+
                 <button @click.stop="flipped = false"
                         class="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-4 rounded shadow">
                     Volver
