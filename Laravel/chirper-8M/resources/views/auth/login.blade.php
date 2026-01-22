@@ -1,43 +1,65 @@
 <x-layout>
     <x-slot:title>
-        Iniciar Sesión
+        Sign In
     </x-slot:title>
 
-    <div class="min-h-[calc(100vh-16rem)] flex items-center justify-center bg-gray-100">
-        <div class="w-96 bg-white rounded-lg shadow-lg">
-            <div class="p-8">
-                <h1 class="text-3xl font-bold text-center mb-6">Iniciar Sesión</h1>
+    <div class="min-h-[calc(100vh-16rem)] bg-base-200 flex items-center justify-center px-4">
+        <div class="card w-full max-w-md bg-base-100 shadow-xl border border-base-300">
+            <div class="card-body space-y-6">
+                <div class="text-center space-y-1">
+                    <h1 class="text-2xl font-semibold text-base-content">Inicia sesión</h1>
+                    <p class="text-sm text-base-content/70">Accede con tu cuenta para continuar</p>
+                </div>
 
-                <form method="POST" action="/login">
+                <form method="POST" action="/login" class="space-y-4">
                     @csrf
 
                     <!-- Email -->
-                    <div class="mb-4">
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" id="email" name="email" value="{{ old('email') }}" required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
-                        @error('email')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    <label class="floating-label">
+                        <input type="email"
+                               name="email"
+                               placeholder="mail@example.com"
+                               value="{{ old('email') }}"
+                               class="input input-bordered w-full @error('email') input-error @enderror"
+                               required
+                               autofocus>
+                        <span>Email</span>
+                    </label>
+                    @error('email')
+                        <div class="label -mt-2 mb-1">
+                            <span class="label-text-alt text-error">{{ $message }}</span>
+                        </div>
+                    @enderror
 
-                    <!-- Contraseña -->
-                    <div class="mb-6">
-                        <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
-                        <input type="password" id="password" name="password" required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
-                        @error('password')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    <!-- Password -->
+                    <label class="floating-label">
+                        <input type="password"
+                               name="password"
+                               placeholder="••••••••"
+                               class="input input-bordered w-full @error('password') input-error @enderror"
+                               required>
+                        <span>Password</span>
+                    </label>
+                    @error('password')
+                        <div class="label -mt-2 mb-1">
+                            <span class="label-text-alt text-error">{{ $message }}</span>
+                        </div>
+                    @enderror
 
-                    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700">
-                        Entrar
-                    </button>
+                    <!-- Remember Me -->
+                    <label class="flex items-center gap-2 text-sm cursor-pointer">
+                        <input type="checkbox" name="remember" class="checkbox checkbox-sm">
+                        <span class="text-base-content/80">Recordarme</span>
+                    </label>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary w-full">Entrar</button>
                 </form>
 
-                <p class="text-center mt-4 text-sm text-gray-600">
-                    ¿No tienes cuenta? <a href="/register" class="text-blue-600 hover:underline">Regístrate aquí</a>
+                <div class="divider">o</div>
+                <p class="text-center text-sm text-base-content/80">
+                    ¿No tienes cuenta?
+                    <a href="/register" class="link link-primary">Regístrate</a>
                 </p>
             </div>
         </div>

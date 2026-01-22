@@ -19,6 +19,6 @@ class Logout extends Controller
         // Regenerar el token CSRF
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('success', '¡Sesión cerrada!');
+        return redirect('/')->with('success', 'Has cerrado sesión correctamente.');
     }
 }

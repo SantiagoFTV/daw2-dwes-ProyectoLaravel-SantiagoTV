@@ -10,23 +10,25 @@ class Login extends Controller
 {
     public function __invoke(Request $request)
     {
-        // Validar credenciales
-        $credentials = $request->validate([
+        // Validar los campos
+        $credenciales = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        // Intentar autenticar
-        if (Auth::attempt($credentials)) {
-            // Regenerar sesión (seguridad)
+        // Intento de inicio de sesion
+        if (Auth::attempt($credenciales, $request->boolean('remember'))) {
+            // Regenerar la sesion para evitar fijacion de sesion
             $request->session()->regenerate();
 
-            return redirect('/')->with('success', '¡Bienvenido/a de nuevo!');
+            // Redirigir a la pagina deseada o al inicio
+            return redirect()->intended('/')
+                ->with('success', '¡Bienvenido de nuevo!');
         }
 
-        // Si falla, volver con error
-        return back()->withErrors([
-            'email' => 'Las credenciales no coinciden con nuestros registros.',
-        ])->onlyInput('email');
+        // Si el inicio de sesion falla, redirigir de vuelta con error
+        return back()
+            ->withErrors(['email' => 'Las credenciales proporcionadas no coinciden con nuestros registros.'])
+            ->onlyInput('email');
     }
 }
