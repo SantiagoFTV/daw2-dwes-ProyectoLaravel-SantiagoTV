@@ -1,0 +1,41 @@
+{
+  "frameworks_php": [
+    {
+      "id": 1,
+      "nombre": "Laravel",
+      "versión": "10.x",
+      "fecha_publicación": "Febrero 2023"
+    },
+    {
+      "id": 2,
+      "nombre": "Symfony",
+      "versión": "6.4",
+      "fecha_publicación": "Noviembre 2023"
+    },
+    {
+      "id": 3,
+      "nombre": "CodeIgniter",
+      "versión": "4.4",
+      "fecha_publicación": "Junio 2023"
+    },
+    {
+      "id": 4,
+      "nombre": "Yii",
+      "versión": "3.0",
+      "fecha_publicación": "Diciembre 2022"
+    },
+    {
+      "id": 5,
+      "nombre": "CakePHP",
+      "versión": "5.0",
+      "fecha_publicación": "Abril 2023"
+    },
+    {
+      "id": 6,
+      "nombre": "Phalcon",
+      "versión": "5.6",
+      "fecha_publicación": "Enero 2024"
+    }
+  ]
+}
+
