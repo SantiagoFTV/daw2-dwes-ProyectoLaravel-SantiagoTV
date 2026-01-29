@@ -57,11 +57,6 @@
             <artifactId>spring-aop</artifactId>
             <version>7.0.3</version>
         </dependency>
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>demo</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
 	<build>
